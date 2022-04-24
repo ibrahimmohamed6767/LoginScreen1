@@ -15,6 +15,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _userNameTextController = TextEditingController();
+  String _selectedGender = 'male';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -59,6 +60,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               _passwordTextController),
                                const SizedBox(
                          height: 20,
+                ),
+                Column(
+                  children: [
+                    Text('Please let us know your gender:'),
+                    ListTile(
+                    leading: Radio<String>(
+                    value: 'male',
+                    groupValue: _selectedGender,
+                    onChanged: (value) {
+                    setState(() {
+                    _selectedGender = value!;
+                    });
+                    },
+                    ),
+                      title: const Text('Male'),
+                    ),
+                    ListTile(
+                      leading: Radio<String>(
+                        value: 'female',
+                        groupValue: _selectedGender,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedGender = value!;
+                          });
+                        },
+                      ),
+                      title: const Text('Female'),
+                    ),
+                    const SizedBox(height: 25),
+                    Text(_selectedGender == 'male' ? 'Hello gentlemen!' : 'Hi lady!')
+                  ],
                 ),
                 firebaseUIButton(context, "Sign Up", () {
                   FirebaseAuth.instance
